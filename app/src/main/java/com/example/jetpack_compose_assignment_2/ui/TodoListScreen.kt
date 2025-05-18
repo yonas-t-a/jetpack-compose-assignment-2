@@ -41,10 +41,6 @@ fun TodoListScreen(
         }
         is TodoListUiState.Success -> {
             val todos = (uiState as TodoListUiState.Success).todos
-//            Row {
-//                TopAppBar {
-//                    Text("To Do List")
-//                }
                 LazyColumn {
                     items(todos) { todo ->
                         Card(
@@ -63,7 +59,6 @@ fun TodoListScreen(
                         }
                     }
                 }
-//            }
         }
     }
 }
