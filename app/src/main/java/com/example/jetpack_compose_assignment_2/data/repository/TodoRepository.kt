@@ -13,15 +13,20 @@ class TodoRepository(
     fun getTodos(): Flow<Result<List<TodoEntity>>> = flow {
         // Emit cached data first
         val cached = dao.getAllTodos()
-        emit(Result.success(cached))
-
+        if (cached.isNotEmpty()) {
+            emit(Result.success(cached))
+        }
         try {
             val remoteTodos = api.getTodos()
             val entities = remoteTodos.map { TodoEntity(it.id, it.userId, it.title, it.completed) }
             dao.insertTodos(entities)
             emit(Result.success(entities))
         } catch (e: Exception) {
-            emit(Result.failure(e))
+            if (cached.isEmpty()) {
+                emit(Result.failure(Exception("No data available offline.")))
+            } else {
+                emit(Result.success(cached))
+            }
         }
     }
 

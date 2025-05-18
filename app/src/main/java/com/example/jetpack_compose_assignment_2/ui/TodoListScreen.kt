@@ -1,5 +1,6 @@
 package com.example.jetpack_compose_assignment_2.ui
 
+import androidx.compose.foundation.background
 import androidx.compose.runtime.*
 import androidx.compose.material.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -47,6 +48,7 @@ fun TodoListScreen(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(8.dp)
+                                .background(MaterialTheme.colors.surface)
                                 .clickable { onTodoClick(todo.id) }
                         ) {
                             Row(
